@@ -4,21 +4,20 @@ import traceback
 import os
 
 prefix = '!/'
-def log_message(command, sent_message):
-    print('Message sent in response to \'' + command + '\': ' + sent_message)
-cid = 0
+def log_message(command, sent_message): #log commands and their replies
+    #reference go brrrr
+    print('Message hazbin sent in response to \'' + command + '\': ' + sent_message)#todo add user name, guild name, and channel name to log
 class MyClient(discord.Client):
-    async def on_ready(self):
+    async def on_ready(self): 
         print('Logged on as', self.user)
 
     async def on_message(self, message):
-        # don't respond to ourselves
         if message.author == self.user:
-            return
+            return #dont reply to ourselves
         try:
             if message.content == prefix + 'ping':
                 guild_name = discord.Guild.name
-                sent_message = 'Pong!'
+                sent_message = 'Pong!' #todo: put latency here
                 await message.channel.send(sent_message)
                 log_message(message.content, sent_message)
             if message.content.startswith(prefix + 'say'):
@@ -34,22 +33,17 @@ class MyClient(discord.Client):
                 await message.channel.send(sent_message)
                 log_message(message.content, sent_message)
         except Exception as e:
-            await message.channel.send("lol an error occured get cucked by the python code loser")
-            await message.channel.send("traceback: " + e) 
-            print(e)
-    async def send_message(message, command):
-        channel = await client.get_channel(cid)
-        await channel.send(command.replace('say ', ''))
-        print('Message \'' + command.replace('say ', '') + '\' hasbeen sent to ' + message.channel.id)
+            await message.channel.send("lol an error happened get cucked by the python code loser\nTraceback: " + str(e)) #lol
 
+            print(e)
 try:
-    botid = os.environ["BOTID"]
+    botid = os.environ["BOTID"] #try to use heroku config var to get botID
 except: 
-    print("Running on local machine. Using text file...")
+    print("Running on local machine. Using text file...") #if config var not found, utilize botid.txt for bot id
     try:
         botid = open (r'botid.txt', "r")
-        botid = botid.read()
+        botid = botid.read() #read botID back into the var
     except:
         print("Please place valid bot ID in botid.txt beside main.py")
 client = MyClient()
-client.run(botid)
+client.run(botid) #run with found botID
