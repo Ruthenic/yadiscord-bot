@@ -1,6 +1,7 @@
 import discord
 import random
 import traceback
+import os
 
 prefix = '!/'
 def log_message(command, sent_message):
@@ -42,8 +43,13 @@ class MyClient(discord.Client):
         print('Message \'' + command.replace('say ', '') + '\' hasbeen sent to ' + message.channel.id)
 
 try:
-    botid = open (r'botid.txt', "r")
-except Exception as e:
-    print("Invalid Bot ID: Put your bot ID in a file called botid.txt with your bot token, and nothing else, inside it.")
+    botid = os.environ["BOTID"]
+except: 
+    print("Running on local machine. Using text file...")
+    try:
+        botid = open (r'botid.txt', "r")
+        botid = botid.read()
+    except:
+        print("Please place valid bot ID in botid.txt beside main.py")
 client = MyClient()
-client.run(botid.read())
+client.run(botid)
