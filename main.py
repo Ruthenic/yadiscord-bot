@@ -12,7 +12,7 @@ prefix = '!/'
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
-    print(f'\nMessage hazbin sent in response to \'user_message.content\'\nResponse: {sent_message}\nUser: {user_message.author}, UserID: {user_message.author.id}\nGuild: {user_message.guild.name}\nChannel: {user_message.channel.name}') # onboho says hi again :)
+    print(f'\nMessage hazbin sent in response to \'{user_message.content}\'\nResponse: {sent_message}\nUser: {user_message.author}, UserID: {user_message.author.id}\nGuild: {user_message.guild.name}\nChannel: {user_message.channel.name}') # onboho says hi again :)
 class MyClient(discord.Client):
     async def on_ready(self): 
         print('Logged on as', self.user)
@@ -49,7 +49,7 @@ class MyClient(discord.Client):
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
             if message.content.startswith(prefix + 'eval'):
-                if message.author.id == "680959829426438168":
+                if message.author.id == 680959829426438168:
                 	guild_name = discord.Guild.name
                 	sent_message = eval(message.content.replace(prefix + 'eval ', ""))
                 	await message.channel.send(sent_message)
