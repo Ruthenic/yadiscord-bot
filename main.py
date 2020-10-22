@@ -43,7 +43,7 @@ class MyClient(discord.Client):
                     #sent_message = str(eval(math_string))
                     sent_message = "Removed math function due to ability to crash python, and therefore the bot, with a large enough exponential equasion. Sorry for the inconvience - Man Behind the Machine"
                     await message.channel.send(sent_message)
-                    log_message(message.content, sent_message)
+                    log_message(message.content, sent_message)                
                 
                 
         except Exception as e:
