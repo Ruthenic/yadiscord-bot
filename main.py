@@ -4,9 +4,12 @@ import traceback
 import os
 import operator
 import array as arr
+from string import ascii_letters as preletters
+from datetime import datetime
 
-letters = ['a','b','c','d','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+letters = [letter for letter in preletters]
 prefix = '!/'
+
 def log_message(command, sent_message): #log commands and their replies
     #reference go brrrr
     print('Message hazbin sent in response to \'' + command + '\': ' + sent_message)#todo add user name, guild name, and channel name to log
@@ -20,8 +23,9 @@ class MyClient(discord.Client):
         try:
             if message.content == prefix + 'ping':
                 guild_name = discord.Guild.name
-                sent_message = 'Pong!' #todo: put latency here
-                await message.channel.send(sent_message)
+                sent_message = 'Pinging...'
+                bot_message = await message.channel.send(sent_message)
+                await bot_message.edit(content=f"Pong! {round(((datetime.timestamp(bot_message.created_at)-datetime.timestamp(message.created_at))%1)*1000)}ms") # onboho says hi
                 log_message(message.content, sent_message)
             if message.content.startswith(prefix + 'say'):
                 saying = message.content.replace(prefix + 'say ', "")
@@ -43,7 +47,18 @@ class MyClient(discord.Client):
                     #sent_message = str(eval(math_string))
                     sent_message = "Removed math function due to ability to crash python, and therefore the bot, with a large enough exponential equasion. Sorry for the inconvience - Man Behind the Machine"
                     await message.channel.send(sent_message)
-                    log_message(message.content, sent_message)                
+                    log_message(message.content, sent_message)
+            if message.content.startswith(prefix + 'eval'):
+                if message.author.id == "680959829426438168":
+                	guild_name = discord.Guild.name
+                	sent_message = eval(message.content.replace(prefix + 'eval ', ""))
+                	await message.channel.send(sent_message)
+                	log_message(message.content, sent_message)
+                else:
+                       guild_name = discord.Guild.name
+                	sent_message = "haha you\'re not the owner of the bot so you cant use it"
+                	await message.channel.send(sent_message)
+                	log_message(message.content, sent_message)
                 
                 
         except Exception as e:
