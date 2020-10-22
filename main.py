@@ -55,10 +55,10 @@ class MyClient(discord.Client):
                 	await message.channel.send(sent_message)
                 	log_message(message, sent_message)
                 else:
-                       guild_name = discord.Guild.name
-                	sent_message = "haha you\'re not the owner of the bot so you cant use it"
-                	await message.channel.send(sent_message)
-                	log_message(message, sent_message)
+                    guild_name = discord.Guild.name
+                    sent_message = "haha you\'re not the owner of the bot so you cant use it"
+                    await message.channel.send(sent_message)
+                    log_message(message, sent_message)
                 
                 
         except Exception as e:
