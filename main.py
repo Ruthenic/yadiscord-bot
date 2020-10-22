@@ -7,6 +7,7 @@ import array as arr
 from string import ascii_letters as preletters
 from datetime import datetime
 
+credits = " People who've contributed: \nRuthenic (Drake),\ntestersbastarps (onboho)"
 letters = [letter for letter in preletters]
 prefix = '!/'
 
@@ -60,6 +61,10 @@ class MyClient(discord.Client):
                     sent_message = "haha you\'re not the owner of the bot so you cant use it"
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
+            if message.content.startswith(prefix + 'credits'):
+                sent_message = credits
+                await message.channel.send(sent_message)
+                log_message(message, sent_message)
                 
                 
         except Exception as e:
