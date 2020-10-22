@@ -40,14 +40,14 @@ class MyClient(discord.Client):
                 if any(ext in math_string for ext in letters):
                     await message.channel.send("lmao did you just try to execute something with a letter in an eval statement? nonono, you cannnot do that")
                 else:
-                    sent_message = eval(math_string)
+                    #sent_message = str(eval(math_string))
+                    sent_message = "Removed math function due to ability to crash python, and therefore the bot, with a large enough exponential equasion. Sorry for the inconvience - Man Behind the Machine"
                     await message.channel.send(sent_message)
-                    log_message(message.content, str(sent_message))
+                    log_message(message.content, sent_message)
                 
                 
         except Exception as e:
             await message.channel.send("lol an error happened get cucked by the python code loser\nTraceback: " + str(e)) #lol
-
             print(e)
 try:
     botid = os.environ["BOTID"] #try to use heroku config var to get botID
