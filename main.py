@@ -51,7 +51,8 @@ class MyClient(discord.Client):
             if message.content.startswith(prefix + 'eval'):
                 if str(message.author.id) == "680959829426438168":
                 	guild_name = discord.Guild.name
-                	sent_message = eval(message.content.replace(prefix + 'eval ', ""))
+                	evalstate = message.content.replace(prefix + 'eval ', "")
+                	sent_message = f'{eval(evalstate)}' #why does this not work?
                 	await message.channel.send(sent_message)
                 	log_message(message, sent_message)
                 else:
