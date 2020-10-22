@@ -2,7 +2,10 @@ import discord
 import random
 import traceback
 import os
+import operator
+import array as arr
 
+letters = ['a','b','c','d','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 prefix = '!/'
 def log_message(command, sent_message): #log commands and their replies
     #reference go brrrr
@@ -32,6 +35,16 @@ class MyClient(discord.Client):
                 sent_message = str(random.randrange(int(range1), int(range2)))
                 await message.channel.send(sent_message)
                 log_message(message.content, sent_message)
+            if message.content.startswith(prefix + 'math'):
+                math_string = message.content.replace(prefix + 'math ', "")
+                if any(ext in math_string for ext in letters):
+                    await message.channel.send("lmao did you just try to execute something with a letter in an eval statement? nonono, you cannnot do that")
+                else:
+                    sent_message = eval(math_string)
+                    await message.channel.send(sent_message)
+                    log_message(message.content, str(sent_message))
+                
+                
         except Exception as e:
             await message.channel.send("lol an error happened get cucked by the python code loser\nTraceback: " + str(e)) #lol
 
