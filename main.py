@@ -67,7 +67,7 @@ class MyClient(discord.Client):
                 sent_message = credits
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
-            if message.content == prefix + 'help'
+            if message.content == prefix + 'help':
                 sent_message = help_message
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
