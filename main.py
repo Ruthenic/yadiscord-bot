@@ -47,7 +47,10 @@ class MyClient(discord.Client):
                 if any(ext in math_string for ext in letters):
                     await message.channel.send("lmao did you just try to execute something with a letter in an eval statement? nonono, you cannnot do that")
                 else:
-                    indiemath = math_string.split(" ")
+                    indiemath = list(math_string)
+                    whitespace = " "
+                    while (whitespace in indiemath):
+                        indiemath.remove(whitespace)
                     if indiemath[1] == '+':
                         sent_message = operator.add(int(indiemath[0]), int(indiemath[2]))
                     elif indiemath[1] == '-':
