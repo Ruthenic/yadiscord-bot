@@ -8,9 +8,10 @@ from string import ascii_letters as preletters
 from datetime import datetime
 
 credits = " People who've contributed: \nRuthenic (Drake),\ntestersbastarps (onboho)"
-help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/say (text)` Make the bot say something.\n`!/range (first\_number), (second\_number)` Make the bot generate a random number in given range.\n`!/math (math\_stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.'
+help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwI\n`!/say (text)` Make the bot say something.\n`!/range (first\_number), (second\_number)` Make the bot generate a random number in given range.\n`!/math (math\_stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.'
 letters = [letter for letter in preletters]
 prefix = '!/'
+owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU']
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
@@ -73,6 +74,11 @@ class MyClient(discord.Client):
                     sent_message = "haha you\'re not the owner of the bot so you cant use it"
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
+            if message.content == prefix + 'owo':
+                index = random.randrange(0, len(owo))
+                sent_message = owo[index]
+                await message.channel.send(sent_message)
+                log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
