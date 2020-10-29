@@ -4,12 +4,10 @@ import traceback
 import os
 import operator
 import array as arr
-from string import ascii_letters as preletters
 from datetime import datetime
 
 credits = " People who've contributed: \nRuthenic (Drake),\ntestersbastarps (onboho)"
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first\_number), (second\_number)` Make the bot generate a random number in given range.\n`!/math (math\_stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.'
-letters = [letter for letter in preletters]
 prefix = '!/'
 owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU']
 
@@ -45,8 +43,8 @@ class MyClient(discord.Client):
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'math'):
                 math_string = message.content.replace(prefix + 'math ', "")
-                if any(ext in math_string for ext in letters):
-                    await message.channel.send("lmao did you just try to execute something with a letter in an eval statement? nonono, you cannnot do that")
+                if math_string.startswith('eval('):
+                    await message.channel.send("lmao did you just try to execute an eval statement? bold of you to assume I am dumb enough to use an eval")
                 else:
                     indiemath = list(math_string)
                     whitespace = " "
