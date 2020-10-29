@@ -87,7 +87,10 @@ class MyClient(discord.Client):
                 sent_message = help_message
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
-                
+            if message.content == prefix + 'github':
+                sent_message = 'Find our github at <https://github.com/Ruthenic/yadiscord-bot>!'
+                await message.channel.send(sent_message)
+                log_message(message, sent_message)
                 
         except Exception as e:
             await message.channel.send(f"lol an error happened get cucked by the python code loser\nTraceback: {str(e)}") #lol
