@@ -38,7 +38,11 @@ class MyClient(discord.Client):
                 range1 = range_string.partition(',')[0].replace(',', '')
                 range2 = range_string.partition(',')[2].replace(',', '')
                 print(range1, range2)
-                sent_message = str(random.randrange(int(range1), int(range2)))
+                sent_message = None
+                try:
+                	sent_message = str(random.randrange(int(range1), int(range2)))
+                except ValueError:
+                	sent_message = "range accepts only numbers"
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'math'):
