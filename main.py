@@ -29,7 +29,7 @@ class MyClient(discord.Client):
                 guild_name = discord.Guild.name
                 sent_message = 'Pinging...'
                 bot_message = await message.channel.send(sent_message)
-                await bot_message.edit(content=f"Pong! {round(((datetime.timestamp(bot_message.created_at)-datetime.timestamp(message.created_at))%1)*1000)}ms") 
+                await bot_message.edit(content=f"Pong! {round(((datetime.timestamp(bot_message.created_at)-datetime.timestamp(message.created_at))%1)*1000)}ms " + str(message.author.mention))
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'say'):
                 saying = message.content.replace(prefix + 'say ', "")
