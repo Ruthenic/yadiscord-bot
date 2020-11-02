@@ -5,7 +5,14 @@ import os
 import operator
 import array as arr
 from datetime import datetime
+#import firebase_admin
+#from firebase_admin import credentials,firestore
 
+#revive code if i use a database ever
+#cred = credentials.Certificate('database-key.json')
+#firebase_admin.initialize_app(cred)
+#db = firestore.client()
+#servers_ref = db.collection(u"servers")
 credits = " People who've contributed: \nRuthenic (Drake),\ntestersbastarps (onboho)"
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first\_number), (second\_number)` Make the bot generate a random number in given range.\n`!/math (math\_stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.'
 prefix = '!/'
@@ -33,6 +40,7 @@ class MyClient(discord.Client):
                 saying = message.content.replace(prefix + 'say ', "")
                 await message.channel.send(saying)
                 log_message(message, saying)
+                await message.delete()
             if message.content.startswith(prefix + 'range'):
                 range_string = message.content.replace(prefix + 'range ', "")
                 range1 = range_string.partition(',')[0].replace(',', '')
@@ -98,6 +106,7 @@ class MyClient(discord.Client):
         except Exception as e:
             await message.channel.send(f"lol an error happened get cucked by the python code loser\nTraceback: {str(e)}") #lol
             print(e)
+
 try:
     botid = os.environ["BOTID"] #try to use heroku config var to get botID
 except: 
@@ -113,3 +122,4 @@ except:
             print("Please place valid bot ID in botid.txt beside main.py")
 client = MyClient()
 client.run(botid) #run with found botID
+
