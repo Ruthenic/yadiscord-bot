@@ -39,8 +39,8 @@ class MyClient(discord.Client):
             if message.content.startswith(prefix + 'say'):
                 saying = message.content.replace(prefix + 'say ', "")
                 await message.channel.send(saying)
-                log_message(message, saying)
                 await message.delete()
+                log_message(message, saying)
             if message.content.startswith(prefix + 'range'):
                 range_string = message.content.replace(prefix + 'range ', "")
                 range1 = range_string.partition(',')[0].replace(',', '')
@@ -101,6 +101,7 @@ class MyClient(discord.Client):
             if message.content == prefix + 'github':
                 sent_message = 'Find our github at <https://github.com/Ruthenic/yadiscord-bot>!'
                 await message.channel.send(sent_message)
+                await message.delete()
                 log_message(message, sent_message)
                 
         except Exception as e:
