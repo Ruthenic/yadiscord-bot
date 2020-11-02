@@ -106,6 +106,10 @@ except:
         botid = open (r'botid.txt', "r")
         botid = botid.read() #read botID back into the var
     except:
-        print("Please place valid bot ID in botid.txt beside main.py")
+        try:
+            botid = open (r'../botid.txt', "r")
+            botid = botid.read() #read botID back into the var
+        except:
+            print("Please place valid bot ID in botid.txt beside main.py")
 client = MyClient()
 client.run(botid) #run with found botID
