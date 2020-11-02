@@ -89,6 +89,7 @@ class MyClient(discord.Client):
                 index = random.randrange(0, len(owo))
                 sent_message = owo[index]
                 await message.channel.send(sent_message)
+                await message.delete()
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
@@ -101,7 +102,6 @@ class MyClient(discord.Client):
             if message.content == prefix + 'github':
                 sent_message = 'Find our github at <https://github.com/Ruthenic/yadiscord-bot>!'
                 await message.channel.send(sent_message)
-                await message.delete()
                 log_message(message, sent_message)
                 
         except Exception as e:
