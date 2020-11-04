@@ -61,16 +61,25 @@ class MyClient(discord.Client):
                     whitespace = " "
                     while (whitespace in indiemath):
                         indiemath.remove(whitespace)
-                    if indiemath[1] == '+':
-                        sent_message = operator.add(int(indiemath[0]), int(indiemath[2]))
-                    elif indiemath[1] == '-':
-                        sent_message = operator.sub(int(indiemath[0]), int(indiemath[2]))
-                    elif indiemath[1] == '*' or indiemath[1] == 'x' or indiemath[1] == 'X':
-                        sent_message = operator.mul(int(indiemath[0]), int(indiemath[2]))
-                    elif indiemath[1] == '/':
-                        sent_message = operator.truediv(int(indiemath[0]), int(indiemath[2]))
-                    else:
-                        sent_message = "not an operator, get punked"
+                    for math in indiemath:
+                        if math == '+':
+                            indiemath = list(math_string.split('+'))
+                            sent_message = operator.add(int(indiemath[0]), int(indiemath[1]))
+                            break
+                        elif math == '-':
+                            indiemath = list(math_string.split('-'))
+                            sent_message = operator.sub(int(indiemath[0]), int(indiemath[1]))
+                            break
+                        elif math == '*':
+                            indiemath = list(math_string.split('*'))
+                            sent_message = operator.mul(int(indiemath[0]), int(indiemath[1]))
+                            break
+                        elif math == '/':
+                            indiemath = list(math_string.split('/'))
+                            sent_message = operator.truediv(int(indiemath[0]), int(indiemath[1]))
+                            break
+                        else:
+                            sent_message = "not an operator, get punked"
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
             if message.content.startswith(prefix + 'eval'):
