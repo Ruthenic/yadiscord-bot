@@ -16,7 +16,7 @@ from datetime import datetime
 credits = " People who've contributed: \nRuthenic (Drake),\ntestersbastarps (onboho),\nGnog3 (Gnog3)"
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.'
 prefix = '!/'
-owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU']
+owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU'] #owo
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
