@@ -114,7 +114,7 @@ class MyClient(discord.Client):
                         if count == 99:
                             sent_message = "Attempted to request translation too many times"
                             break
-                if count != 99:
+                if count != 1000:
                     translated = str(sent_message).split(" ")
                     sent_message = translated[4]
                 print(sent_message)
