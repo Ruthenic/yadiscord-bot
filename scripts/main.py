@@ -96,9 +96,11 @@ class MyClient(discord.Client):
                     sent_message = "haha you\'re not the owner of the bot so you cant use it"
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
-            if message.content == prefix + 'owo':
+            if message.content.startswith(prefix + 'owo'):
                 index = random.randrange(0, len(owo))
                 sent_message = owo[index]
+                if message.content.replace(prefix + 'owo', "") != "":
+                    sent_message = message.content.replace(prefix + 'owo', "") + " " + owo[index]
                 await message.channel.send(sent_message)
                 await message.delete()
                 log_message(message, sent_message)
@@ -111,7 +113,7 @@ class MyClient(discord.Client):
                     except Exception as e:
                         trans = Translator(service_urls='translate.google.com')
                         count+= 1
-                        if count == 99:
+                        if count == 1000:
                             sent_message = "Attempted to request translation too many times"
                             break
                 if count != 1000:
