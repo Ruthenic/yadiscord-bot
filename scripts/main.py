@@ -5,6 +5,7 @@ import os
 import operator
 import array as arr
 from datetime import datetime
+from googletrans import Translator
 #import firebase_admin
 #from firebase_admin import credentials,firestore
 
@@ -17,6 +18,7 @@ credits = " People who've contributed: \nRuthenic (Drake),\ntestersbastarps (onb
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.'
 prefix = '!/'
 owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU'] #owo
+trans = Translator(service_urls='translate.google.com')
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
@@ -99,6 +101,24 @@ class MyClient(discord.Client):
                 sent_message = owo[index]
                 await message.channel.send(sent_message)
                 await message.delete()
+                log_message(message, sent_message)
+            if message.content.startswith(prefix + 'translate'):
+                count = 0
+                while True:
+                    try:
+                        sent_message = trans.translate(message.content.replace(prefix + 'translate ', ""))
+                        break
+                    except Exception as e:
+                        trans = Translator(service_urls='translate.google.com')
+                        count+= 1
+                        if count == 99:
+                            sent_message = "Attempted to request translation too many times"
+                            break
+                if count != 99:
+                    translated = str(sent_message).split(" ")
+                    sent_message = translated[4]
+                print(sent_message)
+                await message.channel.send(sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
