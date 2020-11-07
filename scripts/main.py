@@ -98,7 +98,7 @@ class MyClient(discord.Client):
                     sent_message = "haha you\'re not the owner of the bot so you cant use it"
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
-            if message.content.startswith(prefix + 'owo'):
+            if message.content.startswith(prefix + 'owo '):
                 index = random.randrange(0, len(owo))
                 sent_message = owo[index]
                 if message.content.replace(prefix + 'owo', "") != "":
@@ -108,12 +108,13 @@ class MyClient(discord.Client):
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'translate'):
                 count = 0
+                await message.channel.send("WARNING: EXPERIMENTAL\nMAY TAKE A LONG AMOUNT OF TIME TO WORK, THE BOT IS STILL WORKING DURING THIS")
                 while True:
                     try:
                         sent_message = trans.translate(message.content.replace(prefix + 'translate ', ""))
                         break
                     except Exception as e:
-                        trans = Translator(service_urls='translate.google.com')
+                        #trans = Translator(service_urls='translate.google.com')
                         count+= 1
                         if count == 1000:
                             sent_message = "Attempted to request translation too many times"
@@ -122,6 +123,12 @@ class MyClient(discord.Client):
                     translated = str(sent_message).split(" ")
                     sent_message = translated[4]
                 print(sent_message)
+                await message.channel.send(sent_message)
+                log_message(message, sent_message)
+            if message.content.startswith(prefix + 'owoify '):
+                sent_message = message.content.replace(prefix + 'owoify ', "")
+                sent_message = sent_message.replace("r", "w")
+                sent_message = sent_message.replace("u", "w")
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):
