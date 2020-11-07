@@ -6,6 +6,8 @@ import operator
 import array as arr
 from datetime import datetime
 from googletrans import Translator
+from selenium import webdriver
+
 #import firebase_admin
 #from firebase_admin import credentials,firestore
 
@@ -19,6 +21,12 @@ help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/
 prefix = '!/'
 owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU'] #owo
 trans = Translator(service_urls='translate.google.com')
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
@@ -122,6 +130,7 @@ class MyClient(discord.Client):
                 if count != 1000:
                     translated = str(sent_message).split(" ")
                     sent_message = translated[4]
+                    
                 print(sent_message)
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
@@ -131,6 +140,15 @@ class MyClient(discord.Client):
                 sent_message = sent_message.replace("u", "w")
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
+            if message.content.startswith(prefix + 'translate-exp'):
+                await message.channel.send("WARNING: EVEN MORE EXPERIEMENTAL THAN OTHER COMMAND.")
+                driver.get('https://translate.google.com/#view=home&op=translate&sl=auto&tl=en')
+                driver.find_element_by_id("source").clear() 
+                time.sleep(1)
+                output = driver.find_element_by_xpath("//span[@class='tlid-translation translation']//span").text
+                time.sleep(1)
+                print(output)
+                
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
