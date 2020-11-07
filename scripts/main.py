@@ -4,6 +4,7 @@ import traceback
 import os
 import operator
 import array as arr
+import time
 from datetime import datetime
 from googletrans import Translator
 from selenium import webdriver
@@ -29,10 +30,7 @@ try:
     chrome_options.binary_location = os.environ["GOOGLE_CHROME_BIN"]
 except Exception as e:
     chrome_options.binary_location = "/usr/bin/chromium" #edit depending on location of chrome in system
-try:
-    driver = webdriver.Chrome(executable_path=os.environ["CHROMEDRIVER_PATH"], chrome_options=chrome_options)
-except Exception as e:
-    driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", chrome_options=chrome_options)
+
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
@@ -148,11 +146,24 @@ class MyClient(discord.Client):
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'translate '):
                 #await message.channel.send("WARNING: EVEN MORE EXPERIEMENTAL THAN OTHER COMMAND.")
-                driver.get('https://translate.google.com/#view=home&op=translate&sl=auto&tl=en&text=' + message.content.replace(prefix + 'translate ', ''))
+                #many attempted fixes later... i give up (for now, as of November 7th, 2020)
+                try:
+                    driver = webdriver.Chrome(executable_path=os.environ["CHROMEDRIVER_PATH"], chrome_options=chrome_options)
+                except Exception as e:
+                    driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", chrome_options=chrome_options)
+                sent_message = "Translating..."
+                bot_message = await message.channel.send(sent_message)
+                driver.get('https://translate.google.com/#view=home&op=translate&sl=auto&tl=en')
+                time.sleep(2)
+                #driver.find_element_by_name('text').send_keys(message.content.replace(prefix + 'translate ', ''))
                 sent_message = driver.execute_script('return document.querySelector("body > div.container > div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-results-container.results-container > div.tlid-result.result-dict-wrapper > div.result.tlid-copy-target > div.text-wrap.tlid-copy-target > div > span.tlid-translation.translation > span").innerText')
+                time.sleep(1)
+                #sent_message = driver.find_element_by_id('result_box')
+                #time.sleep(1)
                 sent_message = sent_message.replace("! / translate ", "")
-                await message.channel.send(sent_message)
+                await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
+                driver.quit()
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
