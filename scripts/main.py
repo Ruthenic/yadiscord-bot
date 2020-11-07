@@ -148,7 +148,7 @@ class MyClient(discord.Client):
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'translate '):
                 #await message.channel.send("WARNING: EVEN MORE EXPERIEMENTAL THAN OTHER COMMAND.")
-                driver.get('https://translate.google.com/#view=home&op=translate&sl=auto&tl=en&text=' + message.content.replace(prefix + 'translate-exp ', ''))
+                driver.get('https://translate.google.com/#view=home&op=translate&sl=auto&tl=en&text=' + message.content.replace(prefix + 'translate ', ''))
                 sent_message = driver.execute_script('return document.querySelector("body > div.container > div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-results-container.results-container > div.tlid-result.result-dict-wrapper > div.result.tlid-copy-target > div.text-wrap.tlid-copy-target > div > span.tlid-translation.translation > span").innerText')
                 sent_message = sent_message.replace("! / translate ", "")
                 await message.channel.send(sent_message)
