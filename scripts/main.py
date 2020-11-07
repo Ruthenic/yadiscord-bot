@@ -29,8 +29,10 @@ class MyClient(discord.Client):
         print('Logged on as', self.user)
 
     async def on_message(self, message):
-        if message.author == self.user:
-            return #dont reply to ourselves
+        if str(message.author.id) == '750362382584512623':
+            return #dont reply to the normal version of the bot
+        if str(message.author.id) == '768549646720172042':
+            return #dont reply to the bleeding edge version of the bot
         try:
             if message.content == prefix + 'ping':
                 guild_name = discord.Guild.name
