@@ -25,8 +25,14 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--no-sandbox")
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+try:
+    chrome_options.binary_location = os.environ["GOOGLE_CHROME_BIN"]
+except Exception as e:
+    chrome_options.binary_location = "/usr/bin/chromium" #edit depending on location of chrome in system
+try:
+    driver = webdriver.Chrome(executable_path=os.environ["CHROMEDRIVER_PATH"], chrome_options=chrome_options)
+except Exception as e:
+    driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", chrome_options=chrome_options)
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
@@ -114,9 +120,9 @@ class MyClient(discord.Client):
                 await message.channel.send(sent_message)
                 await message.delete()
                 log_message(message, sent_message)
-            if message.content.startswith(prefix + 'translate'):
+            if message.content.startswith(prefix + 'translate-old '):
                 count = 0
-                await message.channel.send("WARNING: EXPERIMENTAL\nMAY TAKE A LONG AMOUNT OF TIME TO WORK, THE BOT IS STILL WORKING DURING THIS")
+                await message.channel.send("WARNING: OUTDATED & EXPERIMENTAL\nMAY TAKE A LONG AMOUNT OF TIME TO WORK, THE BOT IS STILL WORKING DURING THIS")
                 while True:
                     try:
                         sent_message = trans.translate(message.content.replace(prefix + 'translate ', ""))
@@ -140,15 +146,13 @@ class MyClient(discord.Client):
                 sent_message = sent_message.replace("u", "w")
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
-            if message.content.startswith(prefix + 'translate-exp'):
-                await message.channel.send("WARNING: EVEN MORE EXPERIEMENTAL THAN OTHER COMMAND.")
-                driver.get('https://translate.google.com/#view=home&op=translate&sl=auto&tl=en')
-                driver.find_element_by_id("source").clear() 
-                time.sleep(1)
-                output = driver.find_element_by_xpath("//span[@class='tlid-translation translation']//span").text
-                time.sleep(1)
-                print(output)
-                
+            if message.content.startswith(prefix + 'translate '):
+                #await message.channel.send("WARNING: EVEN MORE EXPERIEMENTAL THAN OTHER COMMAND.")
+                driver.get('https://translate.google.com/#view=home&op=translate&sl=auto&tl=en&text=' + message.content.replace(prefix + 'translate-exp ', ''))
+                sent_message = driver.execute_script('return document.querySelector("body > div.container > div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-results-container.results-container > div.tlid-result.result-dict-wrapper > div.result.tlid-copy-target > div.text-wrap.tlid-copy-target > div > span.tlid-translation.translation > span").innerText')
+                sent_message = sent_message.replace("! / translate ", "")
+                await message.channel.send(sent_message)
+                log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
