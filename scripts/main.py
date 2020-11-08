@@ -131,10 +131,6 @@ class MyClient(discord.Client):
                         if count == 1000:
                             sent_message = "Attempted to request translation too many times"
                             break
-                if count != 1000:
-                    translated = str(sent_message).split(" ")
-                    sent_message = translated[4]
-                    
                 print(sent_message)
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
@@ -153,11 +149,26 @@ class MyClient(discord.Client):
                     driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", chrome_options=chrome_options)
                 sent_message = "Translating..."
                 bot_message = await message.channel.send(sent_message)
-                driver.get('https://translate.google.com/#view=home&op=translate&sl=auto&tl=en')
-                time.sleep(2)
-                #driver.find_element_by_name('text').send_keys(message.content.replace(prefix + 'translate ', ''))
-                sent_message = driver.execute_script('return document.querySelector("body > div.container > div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-results-container.results-container > div.tlid-result.result-dict-wrapper > div.result.tlid-copy-target > div.text-wrap.tlid-copy-target > div > span.tlid-translation.translation > span").innerText')
+                #driver.get('https://translate.google.com&sl=auto&tl=en')
+                driver.get('https://translate.google.com')
                 time.sleep(1)
+                #driver.find_element_by_name('text').send_keys(message.content.replace(prefix + 'translate ', ''))
+                #sent_message = driver.execute_script('return document.querySelector("body > div.container > div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-results-container.results-container > div.tlid-result.result-dict-wrapper > div.result.tlid-copy-target > div.text-wrap.tlid-copy-target > div > span.tlid-translation.translation > span").innerText')
+                count=0
+                while True:
+                    try:
+                        imp = driver.find_element_by_xpath('//textarea') #hazbin hotel/helluva boss reference 2, i'm on a roll
+                        imp.clear()
+                        imp.send_keys(message.content.replace(prefix + 'translate ', ''))
+                        putouts = "//span[contains(@class, 'tlid-translation translation')]/span"
+                        putouts = driver.find_element_by_xpath(putouts)
+                        sent_message = putouts.text
+                    except Exception as e:
+                        count+= 1
+                        if count == 49:
+                            sent_message = "Attempted to request translation too many times"
+                            break
+                #time.sleep(1)
                 #sent_message = driver.find_element_by_id('result_box')
                 #time.sleep(1)
                 sent_message = sent_message.replace("! / translate ", "")
