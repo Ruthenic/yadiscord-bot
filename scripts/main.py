@@ -119,6 +119,12 @@ class MyClient(discord.Client):
                 await message.delete()
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'translate-old '):
+            #i really need a specified reference command lmao
+                if message.content.replace(prefix + 'translate-old ', "").lower() == "helluva boss" or message.content.replace(prefix + 'translate-old ', "").lower() == "helluvaboss":
+                    sent_message = "When I'm lonely, I become hungry...and when I become hungry, I want to choke on that red ████ of yours! ████ your █████ and lick all of your █████ before taking out your █████ and ████ with more teeth until you're screaming ████████ like a fucking baby!" #reference 3, and 3x2=6 and 6+6+6 = 666, show takes place in hell, this is epic
+                    await message.channel.send(sent_message)
+                    log_message(message, sent_message)
+                    return
                 count = 0
                 await message.channel.send("WARNING: OUTDATED & EXPERIMENTAL\nMAY TAKE A LONG AMOUNT OF TIME TO WORK, THE BOT IS STILL WORKING DURING THIS")
                 while True:
