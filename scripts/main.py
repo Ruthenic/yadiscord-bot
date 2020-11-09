@@ -18,7 +18,7 @@ from selenium import webdriver
 #db = firestore.client()
 #servers_ref = db.collection(u"servers")
 credits = " People who've contributed: \nRuthenic (Drake),\ntestersbastarps (onboho),\nGnog3 (Gnog3)"
-help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.'
+help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.' #very long string, i know. do i care? no
 prefix = '!/'
 owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU'] #owo
 trans = Translator(service_urls='translate.google.com')
@@ -38,7 +38,7 @@ def log_message(user_message, sent_message): #log commands and their replies
         
 class MyClient(discord.Client):
     async def on_ready(self): 
-        print('Logged on as', self.user)
+        print('Logged in as', self.user)
 
     async def on_message(self, message):
         if str(message.author.id) == '750362382584512623':
@@ -53,10 +53,10 @@ class MyClient(discord.Client):
                 await bot_message.edit(content=f"Pong! {round(((datetime.timestamp(bot_message.created_at)-datetime.timestamp(message.created_at))%1)*1000)}ms " + str(message.author.mention))
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'say'):
-                saying = message.content.replace(prefix + 'say ', "")
-                await message.channel.send(saying)
+                sent_message = message.content.replace(prefix + 'say ', "") #remove command and prefix at the beginning, leaving only the thing that you want the bot to say
+                await message.channel.send(sent_message)
                 await message.delete()
-                log_message(message, saying)
+                log_message(message, sent_message)
             if message.content.startswith(prefix + 'range'):
                 range_string = message.content.replace(prefix + 'range ', "")
                 range1 = range_string.partition(',')[0].replace(',', '')
@@ -73,7 +73,7 @@ class MyClient(discord.Client):
                 if math_string.startswith('eval('):
                     await message.channel.send("lmao did you just try to execute an eval statement? bold of you to assume I am dumb enough to use an eval")
                 else:
-                    indiemath = list(math_string)
+                    indiemath = list(math_string) 
                     whitespace = " "
                     while (whitespace in indiemath):
                         indiemath.remove(whitespace)
@@ -145,6 +145,7 @@ class MyClient(discord.Client):
                 sent_message = sent_message.replace("r", "w")
                 sent_message = sent_message.replace("u", "w")
                 await message.channel.send(sent_message)
+                await message.delete()
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'translate '):
                 #await message.channel.send("WARNING: EVEN MORE EXPERIEMENTAL THAN OTHER COMMAND.")
