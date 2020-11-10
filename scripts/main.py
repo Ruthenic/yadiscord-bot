@@ -6,9 +6,7 @@ import operator
 import array as arr
 import time
 from datetime import datetime
-#from googletrans import Translator
 from translate import Translator
-from selenium import webdriver
 
 #import firebase_admin
 #from firebase_admin import credentials,firestore
@@ -22,16 +20,6 @@ credits = " People who've contributed: \nRuthenic (Drake),\ntestersbastarps (onb
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.' #very long string, i know. do i care? no
 prefix = '!/'
 owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU'] #owo
-#trans = Translator(service_urls='translate.google.com')
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-try:
-    chrome_options.binary_location = os.environ["GOOGLE_CHROME_BIN"]
-except Exception as e:
-    chrome_options.binary_location = "/usr/bin/chromium" #edit depending on location of chrome in system
-
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
@@ -127,20 +115,7 @@ class MyClient(discord.Client):
                     log_message(message, sent_message)
                     return
                 count = 0
-                await message.channel.send("WARNING: LITERALLY DOESNT DO ANYTHING")
-                while True:
-                    try:
-                        #sent_message = trans.translate(message.content.replace(prefix + 'translate ', ""))
-                        break
-                    except Exception as e:
-                        #trans = Translator(service_urls='translate.google.com')
-                        count+= 1
-                        if count == 1000:
-                            sent_message = "Attempted to request translation too many times"
-                            break
-                print(sent_message)
-                await message.channel.send(sent_message)
-                log_message(message, sent_message)
+                await message.channel.send("WARNING: COMMAND LITERALLY DOESNT DO ANYTHING")
             if message.content.startswith(prefix + 'owoify '):
                 sent_message = message.content.replace(prefix + 'owoify ', "")
                 sent_message = sent_message.replace("r", "w")
@@ -149,43 +124,12 @@ class MyClient(discord.Client):
                 await message.delete()
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'translate '):
-                #await message.channel.send("WARNING: EVEN MORE EXPERIEMENTAL THAN OTHER COMMAND.")
-                #many attempted fixes later... i give up (for now, as of November 7th, 2020)
-                #try:
-                #    driver = webdriver.Chrome(executable_path=os.environ["CHROMEDRIVER_PATH"], chrome_options=chrome_options)
-                #except Exception as e:
-                #    driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", chrome_options=chrome_options)
-                #sent_message = "Translating..."
-                #bot_message = await message.channel.send(sent_message)
-                #driver.get('https://translate.google.com&sl=auto&tl=en')
-                #driver.get('https://translate.google.com')
-                #time.sleep(1)
-                #driver.find_element_by_name('text').send_keys(message.content.replace(prefix + 'translate ', ''))
-                #sent_message = driver.execute_script('return document.querySelector("body > div.container > div.frame > div.page.tlid-homepage.homepage.translate-text > div.homepage-content-wrap > div.tlid-source-target.main-header > div.source-target-row > div.tlid-results-container.results-container > div.tlid-result.result-dict-wrapper > div.result.tlid-copy-target > div.text-wrap.tlid-copy-target > div > span.tlid-translation.translation > span").innerText')
-                #count=0
-                #while True:
-                #    try:
-                #        imp = driver.find_element_by_xpath('//textarea') #hazbin hotel/helluva boss reference 2, i'm on a roll
-                #        imp.clear()
-                #        imp.send_keys(message.content.replace(prefix + 'translate ', ''))
-                #        putouts = "//span[contains(@class, 'tlid-translation translation')]/span"
-                #        putouts = driver.find_element_by_xpath(putouts)
-                #        sent_message = putouts.text
-                #    except Exception as e:
-                #        count+= 1
-                #        if count == 49:
-                #            sent_message = "Attempted to request translation too many times"
-                #            break
-                #time.sleep(1)
-                #sent_message = driver.find_element_by_id('result_box')
-                #time.sleep(1)
                 trans= Translator(to_lang="en", from_lang='autodetect')
                 bot_message = await message.channel.send("Translating...")
                 sent_message = trans.translate(message.content.replace(prefix + 'translate ', ''))
                 sent_message = sent_message.replace("! / translate ", "")
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
-                #driver.quit()
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
