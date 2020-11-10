@@ -130,6 +130,13 @@ class MyClient(discord.Client):
                 sent_message = sent_message.replace("! / translate ", "")
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
+            if message.content.startswith(prefix + 'Übersetzen ') or message.content.startswith(prefix + 'translate-de '):
+                trans= Translator(to_lang="de", from_lang='autodetect')
+                bot_message = await message.channel.send("Übersetzen...")
+                sent_message = trans.translate(message.content.replace(prefix + 'translate-de ', ''))
+                sent_message = sent_message.replace("!/translate-de ", "")
+                await bot_message.edit(content=sent_message)
+                log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
