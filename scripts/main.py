@@ -157,8 +157,9 @@ class MyClient(discord.Client):
                         help_message = open (r'../help.txt', "r")
                         sent_message = help_message.read()
                     except:
-                        sent_message = "Help file not found. Sorry m8, can't help ya :("
-                        print("Error: cannot find help file")
+                        await message.channel.send("Help file not found, defaulting to old string-based one. Sorry m8, can't help ya :(")
+                        print("Error: cannot find help file, fallback to string")
+                        sent_message = help_message
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
             if message.content == prefix + 'github':
