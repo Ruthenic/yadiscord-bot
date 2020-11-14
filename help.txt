@@ -1,0 +1,13 @@
+YaDiscord Bot's commands:
+`!/help` Show the command list.
+`!/credits` Basically credits.
+`!/ping` Ping the bot.
+`!/owo (optional_text)` Print a random OwO/UwU, and if provided text, print the text with a random OwO/UwU behind it.
+`!/say (text)` Make the bot say something.
+`!/range (first-number), (second-number)` Make the bot generate a random number in given range.
+`!/math (math-stuff)` Do simplistic math.
+`!/eval` Evalutate something. Owner only.
+`!/owoify` Turn your text into your text if it was said by a furry roleplaying!
+`!/translate (text)` Translate the text from the (autodetected) language in the text to English
+`!/translate-de (text)` Translate the text from the (autodetected) language in the text to German
+`!/translate-old (text)` DO NOT USE THIS THIS IS OLD THERE ARE DEFINATELY NO EASTER EGGS IN HERE, NOPE NOT AT ALL
