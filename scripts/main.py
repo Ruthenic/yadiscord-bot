@@ -30,9 +30,9 @@ class MyClient(discord.Client):
         print('Logged in as', self.user)
 
     async def on_message(self, message):
-        if str(message.author.id) == '750362382584512623':
+        if str(message.author.id) == '779930937344917534':
             return #dont reply to the normal version of the bot
-        if str(message.author.id) == '768549646720172042':
+        if str(message.author.id) == '779932298183311372':
             return #dont reply to the bleeding edge version of the bot
         try:
             if message.content == prefix + 'ping':
@@ -88,7 +88,7 @@ class MyClient(discord.Client):
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
             if message.content.startswith(prefix + 'eval'):
-                if str(message.author.id) == "680959829426438168":
+                if str(message.author.id) == "762644120589697045":
                 	guild_name = discord.Guild.name
                 	evalstate = message.content.replace(prefix + 'eval ', "")
                 	sent_message = f'{eval(evalstate)}' #why does this not work?
