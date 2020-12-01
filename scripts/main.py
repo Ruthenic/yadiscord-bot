@@ -6,7 +6,7 @@ import operator
 import array as arr
 import time
 from datetime import datetime
-from translate import Translator
+#from translate import Translator
 from google_trans_new import google_translator 
 
 #import firebase_admin
