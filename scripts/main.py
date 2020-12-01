@@ -7,6 +7,7 @@ import array as arr
 import time
 from datetime import datetime
 from translate import Translator
+from google_trans_new import google_translator 
 
 #import firebase_admin
 #from firebase_admin import credentials,firestore
@@ -20,6 +21,7 @@ credits = " People who've contributed: \nRuthenic (AD),\ntestersbastarps (onboho
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.' #very long string, i know. do i care? no
 prefix = '!/'
 owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU'] #owo
+
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
@@ -131,17 +133,26 @@ class MyClient(discord.Client):
                 await message.delete()
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'translate '):
-                trans= Translator(to_lang="en", from_lang='autodetect')
+                #trans = Translator(to_lang="en", from_lang='autodetect')
+                trans = google_translator()
                 bot_message = await message.channel.send("Translating...")
-                sent_message = trans.translate(message.content.replace(prefix + 'translate ', ''))
+                #sent_message = trans.translate(message.content.replace(prefix + 'translate ', ''))
+                sent_message = trans.translate(message.content.replace(prefix + 'translate ', ''), lang_tgt = 'en')
                 sent_message = sent_message.replace("! / translate ", "")
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'Übersetzen ') or message.content.startswith(prefix + 'translate-de '):
-                trans= Translator(to_lang="de", from_lang='autodetect')
+                trans = google_translator()
                 bot_message = await message.channel.send("Übersetzen...")
-                sent_message = trans.translate(message.content.replace(prefix + 'translate-de ', ''))
+                sent_message = trans.translate(message.content.replace(prefix + 'translate-de ', ''), lang_tgt = 'de')
                 sent_message = sent_message.replace("!/translate-de ", "")
+                await bot_message.edit(content=sent_message)
+                log_message(message, sent_message)
+            if message.content.startswith(prefix + 'translate-ru '):
+                trans = google_translator()
+                bot_message = await message.channel.send("Translating...")
+                sent_message = trans.translate(message.content.replace(prefix + 'translate-ru ', ''), lang_tgt = 'ru')
+                sent_message = sent_message.replace("! / translate ", "")
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):
