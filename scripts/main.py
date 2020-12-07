@@ -8,6 +8,9 @@ import time
 from datetime import datetime
 #from translate import Translator
 from google_trans_new import google_translator 
+import json
+import urbdic
+import traceback
 
 #import firebase_admin
 #from firebase_admin import credentials,firestore
@@ -155,6 +158,11 @@ class MyClient(discord.Client):
                 sent_message = sent_message.replace("! / translate ", "")
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
+            if message.content.startswith(prefix + 'urban'):
+                result = urbdic.urban(message.content.replace(prefix + 'urban ', " ").replace(" ", "%20"))
+                sent_message = result["definition"].replace("[", "").replace("]", "")
+                await message.channel.send(sent_message)
+                log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
@@ -177,10 +185,9 @@ class MyClient(discord.Client):
                 sent_message = 'Find our github at <https://github.com/Ruthenic/yadiscord-bot>!'
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
-                
         except Exception as e:
             await message.channel.send(f"lol an error happened get cucked by the python code loser\nTraceback: {str(e)}") #lol
-            print(e)
+            traceback.print_exc()
 
 try:
     botid = os.environ["BOTID"] #try to use heroku config var to get botID
