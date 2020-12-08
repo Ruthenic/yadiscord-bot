@@ -142,7 +142,12 @@ class MyClient(discord.Client):
                 word = "%20".join(word.split("%20")[:-1])
                 result = urbdic.urban(word, num)
                 print(result)
-                sent_message = result["definition"].replace("[", "").replace("]", "")
+                sent_message = result["definition"].replace("[", "").replace("]", "") + "\n"
+                examples = result["example"].split("\n")
+                for example in examples:
+                    example = "*" + example.strip().replace("[", "").replace("]", "")
+                    print(example)
+                    sent_message = sent_message + example + "*\n"
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):
