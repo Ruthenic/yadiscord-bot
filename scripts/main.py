@@ -2,6 +2,7 @@ import discord
 import random
 import traceback
 import os
+import subprocess
 import operator
 import array as arr
 import time
@@ -10,7 +11,6 @@ from datetime import datetime
 from google_trans_new import google_translator 
 import json
 import urbdic
-import traceback
 
 #import firebase_admin
 #from firebase_admin import credentials,firestore
@@ -95,8 +95,12 @@ class MyClient(discord.Client):
             if message.content.startswith(prefix + 'eval'):
                 if str(message.author.id) == "762644120589697045":
                 	guild_name = discord.Guild.name
+                	new_sent_message = ""
                 	evalstate = message.content.replace(prefix + 'eval ', "")
-                	sent_message = f'{eval(evalstate)}' #why does this not work?
+                	sent_message = str(subprocess.check_output(evalstate, shell=True)).replace("b'", "").replace('b"', "").replace("'", "").replace('""', "").split("\\n")
+                	for stdline in sent_message:
+                	    new_sent_message = new_sent_message + stdline + "\n"
+                	sent_message = new_sent_message
                 	await message.channel.send(sent_message)
                 	log_message(message, sent_message)
                 else:
