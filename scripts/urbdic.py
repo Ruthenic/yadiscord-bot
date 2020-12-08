@@ -3,7 +3,10 @@ import json
 import re
 import os
 http.client._is_legal_header_name = re.compile(rb'[^\s][^:\r\n]*').fullmatch
-def urban(term):
+def urban(term, defnum):
+    print(defnum)
+    if defnum == "":
+        defnum = 0
     try:
         urbid = os.environ["URBDICID"].replace("\n", "") #try to use heroku config var to get botID
     except: 
@@ -16,7 +19,7 @@ def urban(term):
                 urbid = open (r'../urbdicid.txt', "r")
                 urbid = urbid.read().replace("\n", "") #read botID back into the var
             except:
-                print("Please place valid UrbanDic ID in urbdicid.txt beside main.py")
+                print("Please place valid UrbanDic ID in urbdicid.txt")
     conn = http.client.HTTPSConnection("mashape-community-urban-dictionary.p.rapidapi.com")
 
     headers = {
@@ -32,6 +35,5 @@ def urban(term):
     jsoning = data.decode("utf-8")
     fulljson = json.loads(jsoning)
     for key, value in fulljson.items():
-        zerodic = value[0]
-        #print(zerodic["definition"])
+        zerodic = value[defnum]
     return(zerodic)

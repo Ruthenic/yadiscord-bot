@@ -133,7 +133,15 @@ class MyClient(discord.Client):
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'urban'):
-                result = urbdic.urban(message.content.replace(prefix + 'urban ', " ").replace(" ", "%20"))
+                word = message.content.replace(prefix + 'urban ', "").replace(" ", "%20")
+                try:
+                    num = int(word[word.rfind("%20") + len("%20")])
+                except Exception as e:
+                    word = word + "%200"
+                    num = int(word[word.rfind("%20") + len("%20")])
+                word = "%20".join(word.split("%20")[:-1])
+                result = urbdic.urban(word, num)
+                print(result)
                 sent_message = result["definition"].replace("[", "").replace("]", "")
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
