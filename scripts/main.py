@@ -9,7 +9,7 @@ import time
 from datetime import datetime
 from google_trans_new import google_translator 
 import json
-from rapidapis import urbdic
+from rapidapis import urbdic, covid19
 
 credits = " People who've contributed: \nRuthenic (AD),\ntestersbastarps (onboho),\nGnog3 (Gnog3)"
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.' #very long string, i know. do i care? no
@@ -155,6 +155,11 @@ class MyClient(discord.Client):
                 for example in examples:
                     example = "*" + example.strip().replace("[", "").replace("]", "")
                     sent_message = sent_message + example + "*\n"
+                await message.channel.send(sent_message)
+                log_message(message, sent_message)
+            if message.content.startswith(prefix + "covidcountry "):
+                result = covid19.covidcountry(message.content.replace(prefix + 'covidcountry ', ""))
+                sent_message = "Confirmed cases in " + result['country'] + ": " + str(result['confirmed'])
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):

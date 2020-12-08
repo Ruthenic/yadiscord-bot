@@ -3,6 +3,7 @@ import json
 import re
 import os
 import random
+import ast
 http.client._is_legal_header_name = re.compile(rb'[^\s][^:\r\n]*').fullmatch
 try:
     rapid = os.environ["URBDICID"].replace("\n", "") #try to use heroku config var to get botID
@@ -76,9 +77,7 @@ class covid19():
         conn.request("GET", "/country/code?code=" + code, headers=headers)
         res = conn.getresponse()
         data = res.read()
-        jsoning = data.decode("utf-8")
-        fulljson = json.loads(jsoning)
-        for key, value in fulljson.items():
-            zerodic = value[0]
-        return(zerodic)
+        array = ast.literal_eval(data.decode('utf-8').replace("[", "").replace("]", ""))
+        print(array)
+        return(array)
     
