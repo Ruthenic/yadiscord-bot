@@ -1,6 +1,7 @@
 import http.client
 import json
 import re
+import os
 http.client._is_legal_header_name = re.compile(rb'[^\s][^:\r\n]*').fullmatch
 def urban(term):
     try:
