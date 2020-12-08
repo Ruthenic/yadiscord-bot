@@ -132,7 +132,7 @@ class MyClient(discord.Client):
                 sent_message = trans.translate(message.content.replace(prefix + 'translate-ru ', ''), lang_tgt = 'ru')
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
-            if message.content.startswith(prefix + 'urban'):
+            if message.content.startswith(prefix + 'urban') and message.content != prefix + "urbanrand":
                 word = message.content.replace(prefix + 'urban ', "").replace(" ", "%20")
                 try:
                     num = int(word[word.rfind("%20") + len("%20")])
@@ -141,12 +141,19 @@ class MyClient(discord.Client):
                     num = int(word[word.rfind("%20") + len("%20")])
                 word = "%20".join(word.split("%20")[:-1])
                 result = urbdic.urban(word, num)
-                print(result)
                 sent_message = result["definition"].replace("[", "").replace("]", "") + "\n"
                 examples = result["example"].split("\n")
                 for example in examples:
                     example = "*" + example.strip().replace("[", "").replace("]", "")
-                    print(example)
+                    sent_message = sent_message + example + "*\n"
+                await message.channel.send(sent_message)
+                log_message(message, sent_message)
+            if message.content == prefix + "urbrand":
+                result = urbdic.urbrand()
+                sent_message = result["Word"] + ":\n" + result["definition"].replace("[", "").replace("]", "") + "\n"
+                examples = result["example"].split("\n")
+                for example in examples:
+                    example = "*" + example.strip().replace("[", "").replace("]", "")
                     sent_message = sent_message + example + "*\n"
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
