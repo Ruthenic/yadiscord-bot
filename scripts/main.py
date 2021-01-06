@@ -93,7 +93,7 @@ class MyClient(discord.Client):
                 await message.channel.send(sent_message)
                 await message.delete()
                 log_message(message, sent_message)
-            if message.content.startswith(prefix + 'translate-old '):
+            '''if message.content.startswith(prefix + 'translate-old '):
             #i really need a specified reference command lmao
                 if message.content.replace(prefix + 'translate-old ', "").lower() == "helluva boss" or message.content.replace(prefix + 'translate-old ', "").lower() == "helluvaboss" or message.content.replace(prefix + 'translate-old ', "").lower() == "helluva":
                     sent_message = "When I'm lonely, I become hungry...and when I become hungry, I want to choke on that red ████ of yours! ████ your █████ and lick all of your █████ before taking out your █████ and ████ with more teeth until you're screaming ████████ like a fucking baby!" #reference 3, and 3x2=6 and 6+6+6 = 666, show takes place in hell, this is epic
@@ -108,7 +108,7 @@ class MyClient(discord.Client):
                     await message.delete()
                     return
                 count = 0
-                await message.channel.send("WARNING: COMMAND LITERALLY DOESNT DO ANYTHING")
+                await message.channel.send("WARNING: COMMAND LITERALLY DOESNT DO ANYTHING")''' #imagine having an old command
             if message.content.startswith(prefix + 'owoify '):
                 sent_message = message.content.replace(prefix + 'owoify ', "").replace("r", "w").replace("u", "w")
                 await message.channel.send(sent_message)

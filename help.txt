@@ -11,4 +11,3 @@ YaDiscord Bot's commands:
 `!/translate (text)` Translate the text from the (autodetected) language in the text to English
 `!/translate-de (text)` Translate the text from the (autodetected) language in the text to German
 `!/translate-ru (text)` Translate the text from the (autodetected) language in the text to Russian
-`!/translate-old (text)` DO NOT USE THIS THIS IS OLD THERE ARE DEFINATELY NO EASTER EGGS IN HERE, NOPE NOT AT ALL
