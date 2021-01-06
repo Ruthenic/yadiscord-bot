@@ -25,7 +25,7 @@ class MyClient(discord.Client):
     async def on_ready(self): 
         print('Logged in as', self.user)
     async def on_message(self, message):
-        if str(message.author.id) == '779930937344917534' or str(message.author.id) == '779932298183311372':
+        if str(message.author.id) == '795683912990851072' or str(message.author.id) == '796227553911242762':
             return #dont reply to the bot itself
         try:
             if message.content == prefix + 'ping':
@@ -73,7 +73,7 @@ class MyClient(discord.Client):
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'eval'):
-                if str(message.author.id) == "762644120589697045":
+                if str(message.author.id) == "714583473804935238":
                 	evalstate = message.content.replace(prefix + 'eval ', "")
                 	sent_message = str(subprocess.check_output(evalstate, shell=True)).replace("b'", "").replace('b"', "").replace("'", "").replace('""', "").split("\\n")
                 	for stdline in sent_message:
