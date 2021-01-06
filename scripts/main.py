@@ -15,7 +15,7 @@ credits = " People who've contributed: \nRuthenic (AD),\ntestersbastarps (onboho
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.' #very long string, i know. do i care? no
 prefix = '!/'
 owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU'] #owo
-
+limit = 2000
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
@@ -146,7 +146,17 @@ class MyClient(discord.Client):
                 for example in examples:
                     example = "*" + example.strip().replace("[", "").replace("]", "")
                     sent_message = sent_message + example + "*\n"
-                await message.channel.send(sent_message)
+                if len(sent_message) > limit:
+                    tmp = []
+                    for split in [sent_message[i:i+limit] for i in range(0, len(sent_message), limit)]:
+                        tmp.append(split)
+                    sent_message = []
+                    for i in tmp:
+                        sent_message.append(i)
+                    for i in sent_message:
+                        await message.channel.send(i)
+                else:
+                    await message.channel.send(sent_message)
                 log_message(message, sent_message)
             if message.content == prefix + "urbrand":
                 result = urbdic.urbrand()
