@@ -1,0 +1,12 @@
+Using this command subset, you can make me, Drake#7299 do something
+
+help: displays this help message
+
+voice: make me say something in a terrible impression of the voices below
+	- AD: it's an open secret what this stands for, but don't say it
+	- Announcer: a voice that sounds slightly like a sports announcer
+	- Me: literally just me
+	example: !/request voice me hello there bucko
+
+prompt: make me do terrible writing based on a prompt
+	example !/request prompt In a world where...

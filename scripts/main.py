@@ -1,4 +1,5 @@
 import discord
+from discord import File
 import random
 import traceback
 import os
@@ -197,11 +198,41 @@ class MyClient(discord.Client):
             if 'hell' in message.content.lower():
                 sent_message = "When I'm lonely, I become hungry...and when I become hungry, I want to choke on that red ████ of yours! ████ your █████ and lick all of your █████ before taking out your █████ and ████ with more teeth until you're screaming ████████ like a fucking baby!" #reference 3, and 3x2=6 and 6+6+6 = 666, show takes place in hell, this is epic
                 await message.channel.send(sent_message)
-                log_message(message, sent_message)
+                #log_message(message, sent_message)
             if 'hazbin' in message.content.lower():
                 sent_message = "Oh, harder daddy!" #reference 4 because 4 is cool
                 await message.channel.send(sent_message)
-                log_message(message, sent_message)
+                #log_message(message, sent_message)
+            if message.content.startswith(prefix + 'request'): #pop on into checking for request things
+                args = message.content.replace('!/', '').split(' ')
+                if args[1] == 'help':
+                    try:
+                        help_message = open (r'help-request.txt', "r")
+                        sent_message = help_message.read()
+                    except:
+                        try:
+                            help_message = open (r'../help-request.txt', "r")
+                            sent_message = help_message.read()
+                        except:
+                            await message.channel.send("Help file not found, defaulting to old string-based one. Sorry m8, can't help ya :(")
+                            print("Error: cannot find help file, fallback to string")
+                            sent_message = 'error'
+                    await message.channel.send(sent_message)
+                    log_message(message, sent_message)
+                if args[1] == 'prompt':
+                    await client.get_user(714583473804935238).send('{}, {} wants {} on {}, {}, with prompt "{}", on channel {}'.format(message.author.mention, message.author.id, args[1], message.guild.name, message.guild.id, message.content.replace('!/request prompt ', ''), message.channel.id))
+                    await message.channel.send("Request sent!")
+                if args[1] == 'voice':
+                    await client.get_user(714583473804935238).send('{}, {} wants {} on {}, {}, with script "{}" and character {}, on channel {}'.format(message.author.mention, message.author.id, args[1], message.guild.name, message.guild.id, message.content.replace('!/request voice {} '.format(args[3]), ''), args[3], message.channel.id))                    
+                if args[1] == 'fulfill':
+                    channel = client.get_channel(int(args[2]))
+                    attatchments = message.attachments
+                    if attatchments == []:
+                        await channel.send(message.content.replace('!/request fulfill {} {} '.format(args[2], args[3]), ''))
+                    else:
+                        await attatchments[0].save('request.{}'.format(attatchments[0].filename.split('.')[1]))
+                        await channel.send('request', file=File('request.{}'.format(attatchments[0].filename.split('.')[1])))
+                    await channel.send('Request fulfilled, <@!{}>!'.format(args[3]))
         except Exception as e:
             await message.channel.send(f"lol an error happened get cucked by the python code loser\nTraceback: {str(e)}") #lol
             traceback.print_exc()
