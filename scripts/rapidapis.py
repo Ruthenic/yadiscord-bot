@@ -4,6 +4,9 @@ import re
 import os
 import random
 import ast
+import seaborn
+import matplotlib.pyplot as plt
+import pandas as pd
 http.client._is_legal_header_name = re.compile(rb'[^\s][^:\r\n]*').fullmatch
 try:
     rapid = os.environ["URBDICID"].replace("\n", "") #try to use heroku config var to get botID
@@ -81,3 +84,15 @@ class covid19():
         print(array)
         return(array)
     
+class stock():
+    def info(identifier):
+        conn = http.client.HTTPSConnection("alpha-vantage.p.rapidapi.com")
+        headers = {
+            'x-rapidapi-key': rapid,
+            'x-rapidapi-host': "alpha-vantage.p.rapidapi.com"
+        }
+        conn.request("GET", "/query?function=GLOBAL_QUOTE&symbol={}".format(identifier), headers=headers)
+        data = conn.getresponse().read()
+        array = json.loads(data.decode("utf-8").strip())
+        print(array["Global Quote"])
+        return(array["Global Quote"])

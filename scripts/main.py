@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 from google_trans_new import google_translator 
 import json
-from rapidapis import urbdic, covid19
+from rapidapis import *
 
 credits = " People who've contributed: \nRuthenic (AD/Drake),\ntestersbastarps (onboho),\nGnog3 (Gnog3)"
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.' #very long string, i know. do i care? no
@@ -203,6 +203,8 @@ class MyClient(discord.Client):
                 sent_message = "Oh, harder daddy!" #reference 4 because 4 is cool
                 await message.channel.send(sent_message)
                 #log_message(message, sent_message)
+            if message.content.startswith(prefix + 'stock'):
+                info = stock.info(message.content.replace(prefix+'stock ', '').replace('$', ''))
             if message.content.startswith(prefix + 'request'): #pop on into checking for request things
                 args = message.content.replace('!/', '').split(' ')
                 if args[1] == 'help':
