@@ -224,6 +224,7 @@ class MyClient(discord.Client):
                     await message.channel.send("Request sent!")
                 if args[1] == 'voice':
                     await client.get_user(714583473804935238).send('{}, {} wants {} on {}, {}, with script "{}" and character {}, on channel {}'.format(message.author.mention, message.author.id, args[1], message.guild.name, message.guild.id, message.content.replace('!/request voice {} '.format(args[3]), ''), args[3], message.channel.id))                    
+                    await message.channel.send("Request sent!")
                 if args[1] == 'fulfill':
                     channel = client.get_channel(int(args[2]))
                     attatchments = message.attachments
