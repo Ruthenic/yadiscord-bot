@@ -1,4 +1,4 @@
-#install dependancies for bot
+#install dependencies for bot
 echo "Installing depenancies..."
 pip install -r requirements.txt
 #create start.sh file

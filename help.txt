@@ -6,7 +6,7 @@ YaDiscord Bot's commands:
 `!/say (text)` Make the bot say something.
 `!/range (first-number), (second-number)` Make the bot generate a random number in given range.
 `!/math (math-stuff)` Do simplistic math.
-`!/eval` Evalutate something. Owner only.
+`!/eval` Evaluate something. Owner only.
 `!/owoify` Turn your text into your text if it was said by a furry roleplaying!
 `!/translate (text)` Translate the text from the (autodetected) language in the text to English
 `!/translate-de (text)` Translate the text from the (autodetected) language in the text to German

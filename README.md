@@ -15,5 +15,5 @@ Bleeding Edge bot invite (most likely to be down, used to test new commits): htt
 !/say (text) Make the bot say something.
 !/range (first-number), (second-number) Make the bot generate a random number in given range.
 !/math (math-stuff) Do simple math.
-!/eval Evalutate something. Owner only.
+!/eval Evaluate something. Owner only.
 !/translate (to-be-translated) Translates the string behind the command from the language it is in to English

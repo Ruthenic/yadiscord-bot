@@ -13,7 +13,7 @@ import json
 from rapidapis import *
 
 credits = " People who've contributed: \nRuthenic (AD/Drake),\ntestersbastarps (onboho),\nGnog3 (Gnog3)"
-help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evalutate something. Owner only.' #very long string, i know. do i care? no
+help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evaluate something. Owner only.' #very long string, i know. do i care? no
 prefix = '!/'
 owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU'] #owo
 limit = 2000
@@ -84,7 +84,7 @@ class MyClient(discord.Client):
                 	log_message(message, sent_message)
                 else:
                     guild_name = discord.Guild.name
-                    sent_message = "haha you\'re not the owner of the bot so you cant use it"
+                    sent_message = "haha you\'re not the owner of the bot so you can't use it"
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
             if message.content.startswith(prefix + 'owo '):
@@ -109,7 +109,7 @@ class MyClient(discord.Client):
                     await message.delete()
                     return
                 count = 0
-                await message.channel.send("WARNING: COMMAND LITERALLY DOESNT DO ANYTHING")''' #imagine having an old command
+                await message.channel.send("WARNING: COMMAND LITERALLY DOES NOT DO ANYTHING")''' #imagine having an old command
             if message.content.startswith(prefix + 'owoify '):
                 sent_message = message.content.replace(prefix + 'owoify ', "").replace("r", "w").replace("u", "w")
                 await message.channel.send(sent_message)
@@ -229,12 +229,12 @@ class MyClient(discord.Client):
                     await message.channel.send("Request sent!")
                 if args[1] == 'fulfill':
                     channel = client.get_channel(int(args[2]))
-                    attatchments = message.attachments
-                    if attatchments == []:
+                    attachments = message.attachments
+                    if attachments == []:
                         await channel.send(message.content.replace('!/request fulfill {} {} '.format(args[2], args[3]), ''))
                     else:
-                        await attatchments[0].save('request.{}'.format(attatchments[0].filename.split('.')[1]))
-                        await channel.send('request', file=File('request.{}'.format(attatchments[0].filename.split('.')[1])))
+                        await attachments[0].save('request.{}'.format(attachments[0].filename.split('.')[1]))
+                        await channel.send('request', file=File('request.{}'.format(attachments[0].filename.split('.')[1])))
                     await channel.send('Request fulfilled, <@!{}>!'.format(args[3]))
         except Exception as e:
             await message.channel.send(f"lol an error happened get cucked by the python code loser\nTraceback: {str(e)}") #lol
