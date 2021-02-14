@@ -4,9 +4,9 @@ import re
 import os
 import random
 import ast
-import seaborn
-import matplotlib.pyplot as plt
-import pandas as pd
+#import seaborn
+#import matplotlib.pyplot as plt
+#import pandas as pd
 http.client._is_legal_header_name = re.compile(rb'[^\s][^:\r\n]*').fullmatch
 try:
     rapid = os.environ["URBDICID"].replace("\n", "") #try to use heroku config var to get botID

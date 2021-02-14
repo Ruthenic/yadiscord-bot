@@ -76,10 +76,10 @@ class MyClient(discord.Client):
             if message.content.startswith(prefix + 'eval'):
                 if str(message.author.id) == "714583473804935238":
                 	evalstate = message.content.replace(prefix + 'eval ', "")
-                	sent_message = str(subprocess.check_output(evalstate, shell=True)).replace("b'", "").replace('b"', "").replace("'", "").replace('""', "").split("\\n")
-                	for stdline in sent_message:
-                	    new_sent_message = new_sent_message + stdline + "\n"
-                	sent_message = new_sent_message
+                	sent_message = str(exec(evalstate))
+                	#for stdline in sent_message:
+                	#    new_sent_message = new_sent_message + stdline + "\n"
+                	#sent_message = new_sent_message
                 	await message.channel.send(sent_message)
                 	log_message(message, sent_message)
                 else:
