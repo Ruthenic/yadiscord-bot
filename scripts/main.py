@@ -229,7 +229,7 @@ class MyClient(discord.Client):
                     await user.send('{}, {} wants {} on {}, {}, with prompt "{}", on channel {}'.format(message.author.mention, message.author.id, args[1], message.guild.name, message.guild.id, message.content.replace('!/request prompt ', ''), message.channel.id))
                     await message.channel.send("Request sent!")
                 if args[1] == 'voice':
-                    user = clients.get_channel(810668024105009185)
+                    user = client.get_channel(810668024105009185)
                     await user.send('{}, {} wants {} on {}, {}, with script "{}" and character {}, on channel {}'.format(message.author.mention, message.author.id, args[1], message.guild.name, message.guild.id, message.content.replace('!/request voice {} '.format(args[3]), ''), args[3], message.channel.id))                    
                     await message.channel.send("Request sent!")
                 if args[1] == 'fulfill':
