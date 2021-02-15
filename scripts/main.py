@@ -17,6 +17,9 @@ help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/
 prefix = '!/'
 owo = ['owo', 'OwO', 'oWo', 'OWO', 'uwu', 'UwU', 'uWu', 'UWU'] #owo
 limit = 2000
+intents = discord.Intents(members=True)
+intents.members = True
+client = discord.Client(intents=intents)
 
 def log_message(user_message, sent_message): #log commands and their replies
     #reference go brrrr
@@ -222,10 +225,12 @@ class MyClient(discord.Client):
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
                 if args[1] == 'prompt':
-                    await client.get_user(714583473804935238).send('{}, {} wants {} on {}, {}, with prompt "{}", on channel {}'.format(message.author.mention, message.author.id, args[1], message.guild.name, message.guild.id, message.content.replace('!/request prompt ', ''), message.channel.id))
+                    user = client.get_channel(810668024105009185)
+                    await user.send('{}, {} wants {} on {}, {}, with prompt "{}", on channel {}'.format(message.author.mention, message.author.id, args[1], message.guild.name, message.guild.id, message.content.replace('!/request prompt ', ''), message.channel.id))
                     await message.channel.send("Request sent!")
                 if args[1] == 'voice':
-                    await client.get_user(714583473804935238).send('{}, {} wants {} on {}, {}, with script "{}" and character {}, on channel {}'.format(message.author.mention, message.author.id, args[1], message.guild.name, message.guild.id, message.content.replace('!/request voice {} '.format(args[3]), ''), args[3], message.channel.id))                    
+                    user = clients.get_channel(810668024105009185)
+                    await user.send('{}, {} wants {} on {}, {}, with script "{}" and character {}, on channel {}'.format(message.author.mention, message.author.id, args[1], message.guild.name, message.guild.id, message.content.replace('!/request voice {} '.format(args[3]), ''), args[3], message.channel.id))                    
                     await message.channel.send("Request sent!")
                 if args[1] == 'fulfill':
                     channel = client.get_channel(int(args[2]))
