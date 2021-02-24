@@ -11,7 +11,9 @@ from datetime import datetime
 from google_trans_new import google_translator 
 import json
 from rapidapis import *
+from PyDictionary import PyDictionary
 
+dictionary=PyDictionary()
 credits = " People who've contributed: \nRuthenic (AD/Drake),\ntestersbastarps (onboho),\nGnog3 (Gnog3)"
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evaluate something. Owner only.' #very long string, i know. do i care? no
 prefix = '!/'
@@ -175,6 +177,18 @@ class MyClient(discord.Client):
                 result = covid19.covidcountry(message.content.replace(prefix + 'covidcountry ', ""))
                 sent_message = "Confirmed cases in " + result['country'] + ": " + str(result['confirmed'])
                 await message.channel.send(sent_message)
+                log_message(message, sent_message)
+            if message.content.startswith(prefix + "define"):
+                sent_message = 'Finding definition...'
+                bot_message = await message.channel.send(sent_message)
+                result = dictionary.meaning(message.content.replace(prefix + "define", ""))
+                new_message = []
+                for i in result:
+                    new_message.append("{}: {}".format(i,result[i][0]))
+                sent_message = ''
+                for i in new_message:
+                    sent_message += i + '\n'
+                await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
