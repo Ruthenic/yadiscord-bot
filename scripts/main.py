@@ -220,7 +220,7 @@ class MyClient(discord.Client):
                 sent_message = "Oh, harder daddy!" #reference 4 because 4 is cool
                 await message.channel.send(sent_message)
                 #log_message(message, sent_message)
-            if 'amogus' in message.content.lower():
+            if 'amogus' in message.content.lower() or 'amongus' in message.content.lower():
                 sent_message = 'I don\'t even have a witty message for this please just stop saying it'
                 await message.channel.send(sent_message)
             if message.content.startswith(prefix + 'stock'):
