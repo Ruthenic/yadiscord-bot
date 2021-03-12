@@ -12,6 +12,7 @@ from google_trans_new import google_translator
 import json
 from rapidapis import *
 from PyDictionary import PyDictionary
+import tesm.tesm as tesm
 
 dictionary=PyDictionary()
 credits = " People who've contributed: \nRuthenic (AD/Drake),\ntestersbastarps (onboho),\nGnog3 (Gnog3)"
@@ -210,6 +211,15 @@ class MyClient(discord.Client):
                 log_message(message, sent_message)
             if message.content == prefix + 'github':
                 sent_message = 'Find our github at <https://github.com/Ruthenic/yadiscord-bot>!'
+                await message.channel.send(sent_message)
+                log_message(message, sent_message)
+            if message.content.startswith(prefix + 'tesm'):
+                code = message.content.split('```')[1].split('```')[0]
+                ary = code.split('\n')
+                code = []
+                for i in ary:
+                    code.append(i.split(' '))
+                sent_message = tesm.interpret(code)
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
             if 'hell ' in message.content.lower():
