@@ -12,7 +12,10 @@ from google_trans_new import google_translator
 import json
 from rapidapis import *
 from PyDictionary import PyDictionary
-import tesm.tesm as tesm
+try:
+    import tesm.main as tesm
+except:
+    import tesm as tesm
 
 dictionary=PyDictionary()
 credits = " People who've contributed: \nRuthenic (AD/Drake),\ntestersbastarps (onboho),\nGnog3 (Gnog3)"
