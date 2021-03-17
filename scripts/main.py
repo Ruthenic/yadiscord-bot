@@ -194,6 +194,9 @@ class MyClient(discord.Client):
                     sent_message += i + '\n'
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
+            if message.content.startswith(prefix + "angeldust"):
+            	#secret command, tell no-one
+            	await message.channel.send("gg\nhttps://youtu.be/gS5CHjROVH4")
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
