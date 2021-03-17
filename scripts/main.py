@@ -85,7 +85,7 @@ class MyClient(discord.Client):
             if message.content.startswith(prefix + 'eval'):
                 if str(message.author.id) == "714583473804935238":
                 	evalstate = message.content.replace(prefix + 'eval ', "")
-                	sent_message = str(exec(evalstate))
+                	sent_message = str(eval(evalstate))
                 	#for stdline in sent_message:
                 	#    new_sent_message = new_sent_message + stdline + "\n"
                 	#sent_message = new_sent_message
