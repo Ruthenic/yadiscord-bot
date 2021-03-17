@@ -96,9 +96,9 @@ class MyClient(discord.Client):
                     sent_message = "haha you\'re not the owner of the bot so you can't use it"
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
-            if message.content.startswith(prefix + 'owo '):
+            if message.content.startswith(prefix + 'owo'):
                 sent_message = owo[random.randrange(0, len(owo))]
-                if message.content.replace(prefix + 'owo', "") != "":
+                if not message.content.replace(prefix + 'owo', "") == "":
                     sent_message = message.content.replace(prefix + 'owo', "") + " " + owo[random.randrange(0, len(owo))]
                 await message.channel.send(sent_message)
                 await message.delete()
