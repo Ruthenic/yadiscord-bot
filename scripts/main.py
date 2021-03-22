@@ -194,18 +194,15 @@ class MyClient(discord.Client):
                     sent_message += i + '\n'
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
-<<<<<<< HEAD
             if message.content == prefix + "sc":
                 n=0
                 for i in client.guilds:
                     print(i)
                     n+=1
                 await message.channel.send('Bot is in `{}` servers'.format(str(n)))
-=======
             if message.content.startswith(prefix + "angeldust"):
             	#secret command, tell no-one
             	await message.channel.send("gg\nhttps://youtu.be/gS5CHjROVH4")
->>>>>>> d721360b343e4ad2d2c7889366e0f422cdba871a
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
