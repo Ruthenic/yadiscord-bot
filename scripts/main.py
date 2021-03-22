@@ -194,6 +194,12 @@ class MyClient(discord.Client):
                     sent_message += i + '\n'
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
+            if message.content == prefix + "sc":
+                n=0
+                for i in client.guilds:
+                    print(i)
+                    n+=1
+                await message.channel.send('Bot is in `{}` servers'.format(str(n)))
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
