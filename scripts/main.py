@@ -85,7 +85,7 @@ class MyClient(discord.Client):
             if message.content.startswith(prefix + 'eval'):
                 if str(message.author.id) == "714583473804935238":
                 	evalstate = message.content.replace(prefix + 'eval ', "")
-                	sent_message = str(exec(evalstate))
+                	sent_message = str(eval(evalstate))
                 	#for stdline in sent_message:
                 	#    new_sent_message = new_sent_message + stdline + "\n"
                 	#sent_message = new_sent_message
@@ -96,9 +96,9 @@ class MyClient(discord.Client):
                     sent_message = "haha you\'re not the owner of the bot so you can't use it"
                     await message.channel.send(sent_message)
                     log_message(message, sent_message)
-            if message.content.startswith(prefix + 'owo '):
+            if message.content.startswith(prefix + 'owo'):
                 sent_message = owo[random.randrange(0, len(owo))]
-                if message.content.replace(prefix + 'owo', "") != "":
+                if not message.content.replace(prefix + 'owo', "") == "":
                     sent_message = message.content.replace(prefix + 'owo', "") + " " + owo[random.randrange(0, len(owo))]
                 await message.channel.send(sent_message)
                 await message.delete()
@@ -194,12 +194,18 @@ class MyClient(discord.Client):
                     sent_message += i + '\n'
                 await bot_message.edit(content=sent_message)
                 log_message(message, sent_message)
+<<<<<<< HEAD
             if message.content == prefix + "sc":
                 n=0
                 for i in client.guilds:
                     print(i)
                     n+=1
                 await message.channel.send('Bot is in `{}` servers'.format(str(n)))
+=======
+            if message.content.startswith(prefix + "angeldust"):
+            	#secret command, tell no-one
+            	await message.channel.send("gg\nhttps://youtu.be/gS5CHjROVH4")
+>>>>>>> d721360b343e4ad2d2c7889366e0f422cdba871a
             if message.content.startswith(prefix + 'credits'):
                 sent_message = credits
                 await message.channel.send(sent_message)
