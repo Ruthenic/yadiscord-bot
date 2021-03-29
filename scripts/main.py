@@ -16,7 +16,8 @@ try:
     import tesm.main as tesm
 except:
     import tesm as tesm
-
+import requests
+    
 dictionary=PyDictionary()
 credits = " People who've contributed: \nRuthenic (AD/Drake),\ntestersbastarps (onboho),\nGnog3 (Gnog3)"
 help_message = 'YaDiscord Bot\'s commands:\n`!/help` Show the command list.\n`!/credits` Basically credits.\n`!/ping` Ping the bot.\n`!/owo` Print a random OwO/UwU\n`!/say (text)` Make the bot say something.\n`!/range (first-number), (second-number)` Make the bot generate a random number in given range.\n`!/math (math-stuff)` Do simple math\n`!/eval` Evaluate something. Owner only.' #very long string, i know. do i care? no
@@ -177,6 +178,30 @@ class MyClient(discord.Client):
                     sent_message = sent_message + example + "*\n"
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
+            if message.content.startswith(prefix + "r34"):
+                if message.channel.is_nsfw():
+                    tags = message.content.replace(prefix + "r34 ", "").split(",")
+                    if len(tags) == 0:
+                        response = requests.get('https://r34-json.herokuapp.com/posts').text
+                    else:
+                        link = 'https://r34-json.herokuapp.com/posts?tags='
+                        for i in tags:
+                            link+=i + ""
+                        link = link.rstrip("+")
+                        print(link)
+                        response = requests.get(link).text
+                    posts = json.loads(response)
+                    post = posts["posts"][0]
+                    link = post["file_url"]
+                    title = post["id"]
+                    score = post["score"]
+                    embed=discord.Embed(title=title, description=score)
+                    embed.set_image(url=link)
+                    #embed.add_field(name=undefined, value=undefined, inline=False)
+                    await message.channel.send(embed=embed)
+                    print(post)
+                else:
+                    await message.channel.send("Cannot display porn in non-nsfw channels")
             if message.content.startswith(prefix + "covidcountry "):
                 result = covid19.covidcountry(message.content.replace(prefix + 'covidcountry ', ""))
                 sent_message = "Confirmed cases in " + result['country'] + ": " + str(result['confirmed'])
