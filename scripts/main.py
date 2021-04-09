@@ -180,18 +180,26 @@ class MyClient(discord.Client):
                 log_message(message, sent_message)
             if message.content.startswith(prefix + "r34"):
                 if message.channel.is_nsfw():
-                    tags = message.content.replace(prefix + "r34 ", "").split(",")
+                    command = message.content.split(" ")
+                    #tags = message.content.replace(prefix + "r34", "").lstrip(" ").split(",")
+                    try:
+                        tags = command[1].split(",")
+                    except:
+                        tags = []
                     if len(tags) == 0:
                         response = requests.get('https://r34-json.herokuapp.com/posts').text
                     else:
                         link = 'https://r34-json.herokuapp.com/posts?tags='
                         for i in tags:
-                            link+=i + ""
+                            link+=i + "+"
                         link = link.rstrip("+")
                         print(link)
                         response = requests.get(link).text
                     posts = json.loads(response)
-                    post = posts["posts"][0]
+                    if len(command) < 3:
+                        post = posts["posts"][0]
+                    else:
+                        post = posts["posts"][int(command[2])]
                     link = post["file_url"]
                     title = post["id"]
                     score = post["score"]
