@@ -203,11 +203,12 @@ class MyClient(discord.Client):
                     link = post["file_url"]
                     title = post["id"]
                     score = post["score"]
-                    embed=discord.Embed(title=title, description=score)
+                    embed=discord.Embed(title=title, description=score, url="https://rule34.xxx/index.php?page=post&s=view&id=" + post["id"])
                     embed.set_image(url=link)
                     #embed.add_field(name=undefined, value=undefined, inline=False)
                     await message.channel.send(embed=embed)
-                    print(post)
+                    #print(post)
+                    log_message(message, "[embed]")
                 else:
                     await message.channel.send("Cannot display porn in non-nsfw channels")
             if message.content.startswith(prefix + "covidcountry "):
