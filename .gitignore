@@ -5,3 +5,4 @@ ibm-key.txt
 rapidapiid.txt
 out.json
 *.mp3
+scripts/__pycache__
