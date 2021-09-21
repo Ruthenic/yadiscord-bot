@@ -179,7 +179,11 @@ class MyClient(discord.Client):
                 await message.channel.send(sent_message)
                 log_message(message, sent_message)
             if message.content.startswith(prefix + "r34"):
-                if message.channel.is_nsfw():
+                try:
+                    isNsfw = message.channel.is_nsfw()
+                except:
+                    isNsfw = False
+                if isNsfw or type(message.channel) == discord.DMChannel:
                     command = message.content.split(" ")
                     #tags = message.content.replace(prefix + "r34", "").lstrip(" ").split(",")
                     try:
